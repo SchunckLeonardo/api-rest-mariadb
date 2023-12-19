@@ -1,7 +1,9 @@
+import Student from '../models/StudentsModel.js'
+
 class HomeController {
 
-  index(req, res) {
-    res.json({"msg": "Hello World"})
+  async index(req, res) {
+    res.json({"msg": "ola"})
   }
 
 }
