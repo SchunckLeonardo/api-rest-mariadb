@@ -1,9 +1,6 @@
 import User from "../models/UsersModels.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import { config } from "dotenv"
-config()
-
 class TokenController {
   async store(req, res) {
     let { email, password } = req.body
