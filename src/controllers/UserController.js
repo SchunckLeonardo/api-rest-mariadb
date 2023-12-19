@@ -46,13 +46,13 @@ class UserController {
     try {
 
       if (!id) {
-        return res.status(400).json({ msg: "ID Missing" })
+        return res.status(400).json({ errors: ["ID Missing"] })
       }
 
       const user = (await User.findByPk(id))
 
       if (!user) {
-        return res.status(404).json({ msg: "User not found" })
+        return res.status(404).json({ errors: ["User not found"] })
       }
 
       const newUser = await user.update({ name, email, password })
@@ -68,13 +68,13 @@ class UserController {
     let id = req.params.id
     try {
       if (!id) {
-        return res.status(400).json({ msg: "ID Missing" })
+        return res.status(400).json({ errors: ["ID Missing"] })
       }
 
       let user = await User.findByPk(id)
 
       if (!user) {
-        return res.status(404).json({ msg: "User not found" })
+        return res.status(404).json({ errors: ["User not found"] })
       }
 
       await user.destroy()
