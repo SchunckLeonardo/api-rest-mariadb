@@ -33,9 +33,7 @@ class UserController {
     try {
       let user = await User.findByPk(req.params.id)
 
-      const { id, name, email } = user
-
-      res.json({ id, name, email })
+      res.json({ id: user.id, name: user.name, email: user.email })
     } catch (err) {
       res.status(500).json({ msg: "Internal Server Error" })
       throw new Error(err)
