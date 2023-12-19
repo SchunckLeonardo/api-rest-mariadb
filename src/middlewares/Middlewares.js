@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import User from "../models/UsersModels.js"
 
 class Middlewares {
 
@@ -14,13 +15,20 @@ class Middlewares {
     try {
       const datas = jwt.verify(token, process.env.TOKEN_SECRET)
 
-      const {id, email} = datas
+      const { id, email } = datas
+
+      const user = await User.findOne({ where: { email, id } })
+
+      if(!user) {
+        return res.status(401).json({errors: ["Invalid User"]})
+      }
+
       req.userId = id
       req.userEmail = email
       return next()
 
-    } catch(err) {
-      res.status(401).json({errors: ["Token Expired or Invalid"]})
+    } catch (err) {
+      res.status(401).json({ errors: ["Token Expired or Invalid"] })
       throw new Error(err)
     }
 
