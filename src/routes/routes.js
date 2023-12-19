@@ -1,7 +1,7 @@
 import {Router} from "express";
-import homeController from "../controllers/HomeController.js"
+import userController from "../controllers/UserController.js"
 const router = Router()
 
-router.get("/", homeController.index)
+router.post("/", userController.store)
 
 export default router
