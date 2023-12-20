@@ -15,6 +15,10 @@ class StudentController {
     try {
       let student = await Student.findByPk(req.params.id)
 
+      if(!student) {
+        return res.status(404).json({errors: ["Not found Student"]})
+      }
+
       res.json({
         id: student.id,
         name: student.name,
