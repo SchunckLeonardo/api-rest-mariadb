@@ -1,9 +1,19 @@
 import Student from "../models/StudentsModel.js"
+import Photo from "../models/PhotosModel.js"
 
 class StudentController {
   async index(req, res) {
     try {
-      let students = await Student.findAll({ attributes: ["id", "name", "subname", "email", "age", "weight", "height"] })
+      let students = await Student.findAll({
+        attributes: ["id", "name", "subname", "email", "age", "weight", "height"],
+        order: [["id", "DESC"], [Photo, "id", "DESC"]],
+        include: [
+          {
+            model: Photo,
+            attributes: ["url","filename"]
+          }
+        ]
+      })
       res.json(students)
     } catch (err) {
       res.status(500).json({ msg: "Internal Server Error" })
@@ -13,21 +23,22 @@ class StudentController {
 
   async show(req, res) {
     try {
-      let student = await Student.findByPk(req.params.id)
+      let student = await Student.findByPk(req.params.id, {
+        attributes: ["id", "name", "subname", "email", "age", "weight", "height"],
+        order: [["id", "DESC"], [Photo, "id", "DESC"]],
+        include: [
+          {
+            model: Photo,
+            attributes: ["url", "filename"]
+          }
+        ]
+      })
 
       if(!student) {
         return res.status(404).json({errors: ["Not found Student"]})
       }
 
-      res.json({
-        id: student.id,
-        name: student.name,
-        subname: student.subname,
-        email: student.email,
-        age: student.age,
-        weight: student.weight,
-        height: student.height
-      })
+      res.json(student)
     } catch (err) {
       res.status(500).json({ msg: "Internal Server Error" })
       throw new Error(err)

@@ -62,7 +62,12 @@ export default class Student extends Model {
           }
         }
       },
-    }, {sequelize})
+    }, { sequelize })
+
     return this
+  }
+
+  static associate(models) {
+    this.hasMany(models.Photo, { foreignKey: "student_id" })
   }
 }

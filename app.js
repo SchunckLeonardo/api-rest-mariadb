@@ -1,5 +1,6 @@
 import express from 'express';
 import { config } from 'dotenv';
+import { resolve } from "path"
 import "./src/database/connection.js"
 import userRoutes from "./src/routes/UserRoutes.js"
 import tokenRoutes from "./src/routes/TokenRoutes.js"
@@ -14,5 +15,6 @@ app.use("/users", userRoutes)
 app.use("/token", tokenRoutes)
 app.use("/student", studentRoutes)
 app.use("/photos", photoRoutes)
+app.use(express.static(resolve("uploads")))
 
 export default app
