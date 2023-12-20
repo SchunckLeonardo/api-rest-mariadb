@@ -1,11 +1,11 @@
 import express from 'express';
 import { config } from 'dotenv';
 import { resolve } from "path"
-import "./src/database/connection.js"
-import userRoutes from "./src/routes/UserRoutes.js"
-import tokenRoutes from "./src/routes/TokenRoutes.js"
-import studentRoutes from "./src/routes/StudentRoutes.js"
-import photoRoutes from "./src/routes/PhotoRoutes.js"
+import "./database/connection.js"
+import userRoutes from "./routes/UserRoutes.js"
+import tokenRoutes from "./routes/TokenRoutes.js"
+import studentRoutes from "./routes/StudentRoutes.js"
+import photoRoutes from "./routes/PhotoRoutes.js"
 const app = express()
 config()
 
